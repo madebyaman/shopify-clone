@@ -1,9 +1,39 @@
 import jwt from "jsonwebtoken";
 import { NextRequest } from "next/server";
+import GradientLayout from "../../components/gradientLayout";
 import prisma from "../../lib/prisma";
 
+const getBgColor = (id) => {
+  const colors = [
+    "red",
+    "green",
+    "blue",
+    "orange",
+    "yellow",
+    "teal",
+    "purple",
+    "pink",
+    "gray",
+    "cyan",
+  ];
+
+  return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)];
+};
+
 const Playlist = ({ playlist }) => {
-  return <div>{playlist.name}</div>;
+  const color = getBgColor(playlist.id);
+  return (
+    <GradientLayout
+      color={color}
+      title={playlist.name}
+      subtitle="playlist"
+      description={`${playlist.songs.length} songs`}
+      image={`https://picsum.photos/400?random=${playlist.id}`}
+      roundImage={false}
+    >
+      Aman
+    </GradientLayout>
+  );
 };
 
 export const validateToken = (token) => jwt.verify(token, "hello");
