@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { NextRequest } from "next/server";
 import GradientLayout from "../../components/gradientLayout";
+import SongTable from "../../components/songsTable";
 import prisma from "../../lib/prisma";
 
 const getBgColor = (id) => {
@@ -31,7 +31,7 @@ const Playlist = ({ playlist }) => {
       image={`https://picsum.photos/400?random=${playlist.id}`}
       roundImage={false}
     >
-      Aman
+      <SongTable songs={playlist.songs} />
     </GradientLayout>
   );
 };
