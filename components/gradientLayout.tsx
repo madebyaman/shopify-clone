@@ -1,4 +1,15 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { ReactNode } from "react";
+
+interface GradientLayoutPropsInterface {
+  color: string;
+  children: ReactNode;
+  image: string;
+  subtitle: string;
+  title: string;
+  description: string;
+  roundImage: boolean;
+}
 
 const GradientLayout = ({
   color,
@@ -8,7 +19,7 @@ const GradientLayout = ({
   title,
   description,
   roundImage,
-}) => {
+}: GradientLayoutPropsInterface) => {
   return (
     <Box
       height="100%"
@@ -34,6 +45,7 @@ const GradientLayout = ({
           </Text>
         </Box>
       </Flex>
+      <Box py="50px">{children}</Box>
     </Box>
   );
 };
