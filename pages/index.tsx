@@ -34,7 +34,7 @@ const Home: NextPage = ({ artists }) => {
         </Box>
         <Flex>
           {artists.map((artist) => (
-            <Box px="10px" w="20%">
+            <Box px="10px" w="20%" key={artist.id}>
               <Box bg="gray.900" borderRadius="4px" p="15px" w="100%">
                 <Image
                   src="https://placekitten.com/300/300"
