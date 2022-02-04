@@ -1,4 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
+import Player from "./player";
 
 const PlayerBar = () => {
   return (
@@ -8,7 +9,9 @@ const PlayerBar = () => {
           <Text fontSize="large">Song name</Text>
           <Text fontSize="sm">Artist Name</Text>
         </Box>
-        <Box w="40%">Controls</Box>
+        <Box w="40%">
+          <Player />
+        </Box>
         <Box w="30%">Song</Box>
       </Flex>
     </Box>

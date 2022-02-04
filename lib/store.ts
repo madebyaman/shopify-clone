@@ -8,5 +8,5 @@ export const store = createStore({
   }),
   changeActiveSong: action((state, payload) => {
     state.activeSong = payload;
-  }
+  }),
 });
