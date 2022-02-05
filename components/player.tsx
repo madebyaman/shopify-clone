@@ -19,7 +19,8 @@ import {
   MdOutlinePlayCircleFilled,
   MdOutlinePauseCircleFilled,
 } from "react-icons/md";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { formatTime } from "../lib/formatters";
 
 const Player = ({ songs, activeSong }) => {
   const [playing, setPlaying] = useState(true);
@@ -30,6 +31,19 @@ const Player = ({ songs, activeSong }) => {
   const [duration, setDuration] = useState(0.1);
   const soundRef = useRef(null);
   const [isSeeking, setIsSeeking] = useState(false);
+
+  useEffect(() => {
+    let timerId;
+    if (playing && !isSeeking) {
+      const f = () => {
+        setSeek(soundRef.current.seek());
+        timerId = requestAnimationFrame(f);
+      };
+      timerId = requestAnimationFrame(f);
+      return () => cancelAnimationFrame(timerId);
+    }
+    cancelAnimationFrame(timerId);
+  }, [playing, isSeeking]);
 
   const setPlayState = (value) => {
     setPlaying(value);
@@ -136,7 +150,7 @@ const Player = ({ songs, activeSong }) => {
       <Box color="gray.600">
         <Flex align="center">
           <Box w="10%">
-            <Text fontSize="xs">1:21</Text>
+            <Text fontSize="xs">{formatTime(seek)}</Text>
           </Box>
           <Box w="80%">
             <RangeSlider
@@ -158,7 +172,7 @@ const Player = ({ songs, activeSong }) => {
             </RangeSlider>
           </Box>
           <Box w="10%" textAlign="right">
-            <Text fontSize="xs">3:21</Text>
+            <Text fontSize="xs">{formatTime(duration)}</Text>
           </Box>
         </Flex>
       </Box>
