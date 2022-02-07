@@ -1,10 +1,17 @@
 import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import { ReactNode } from "react";
 import GradientLayout from "../components/gradientLayout";
 import { useMe } from "../lib/hooks";
 import prisma from "../lib/prisma";
 
-const Home: NextPage = ({ artists }) => {
+interface HomePropsInterface {
+  artists?: any;
+  // eslint-disable-next-line react/no-unused-prop-types
+  children?: ReactNode;
+}
+
+const Home: NextPage = ({ artists }: HomePropsInterface) => {
   const { user, isLoading, isError } = useMe();
 
   if (isLoading) {
@@ -12,7 +19,7 @@ const Home: NextPage = ({ artists }) => {
   }
 
   if (isError) {
-    return <Text>{isError}</Text>;
+    return <Text>Error: {isError}</Text>;
   }
 
   return (
@@ -33,7 +40,7 @@ const Home: NextPage = ({ artists }) => {
           <Text fontSize="md">only visible to you</Text>
         </Box>
         <Flex>
-          {artists.map((artist) => (
+          {artists.map((artist: any) => (
             <Box px="10px" w="20%" key={artist.id}>
               <Box bg="gray.900" borderRadius="4px" p="15px" w="100%">
                 <Image
@@ -53,8 +60,13 @@ const Home: NextPage = ({ artists }) => {
   );
 };
 
+Home.defaultProps = {
+  artists: [],
+  children: null,
+};
+
 export const getServerSideProps = async () => {
-  const artists = await prisma.artist.findMany({});
+  const artists: any = await prisma.artist.findMany({});
   return {
     props: { artists },
   };

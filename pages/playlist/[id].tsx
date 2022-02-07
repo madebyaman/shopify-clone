@@ -3,7 +3,7 @@ import GradientLayout from "../../components/gradientLayout";
 import SongTable from "../../components/songsTable";
 import prisma from "../../lib/prisma";
 
-const getBgColor = (id) => {
+const getBgColor = (id: any) => {
   const colors = [
     "red",
     "green",
@@ -20,7 +20,7 @@ const getBgColor = (id) => {
   return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)];
 };
 
-const Playlist = ({ playlist }) => {
+const Playlist = ({ playlist }: { playlist: any }) => {
   const color = getBgColor(playlist.id);
   return (
     <GradientLayout
@@ -36,10 +36,16 @@ const Playlist = ({ playlist }) => {
   );
 };
 
-export const validateToken = (token) => jwt.verify(token, "hello");
+export const validateToken = (token: any) => jwt.verify(token, "hello");
 
-export const getServerSideProps = async ({ query, req }) => {
-  let user;
+export const getServerSideProps = async ({
+  query,
+  req,
+}: {
+  query: any;
+  req: any;
+}) => {
+  let user: any;
   try {
     user = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
   } catch (e) {

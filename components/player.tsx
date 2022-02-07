@@ -23,22 +23,22 @@ import { useEffect, useRef, useState } from "react";
 import { useStoreActions } from "easy-peasy";
 import { formatTime } from "../lib/formatters";
 
-const Player = ({ songs, activeSong }) => {
+const Player = ({ songs, activeSong }: { songs: any; activeSong: any }) => {
   const [playing, setPlaying] = useState(true);
   const [index, setIndex] = useState(
-    songs.findIndex((s) => s.id === activeSong.id)
+    songs.findIndex((s: any) => s.id === activeSong.id)
   );
   const [seek, setSeek] = useState(0.0);
   const [repeat, setRepeat] = useState(false);
   const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0.1);
-  const soundRef = useRef(null);
+  const soundRef = useRef<any>(null);
   const [isSeeking, setIsSeeking] = useState(false);
   const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
   const repeatRef = useRef(repeat);
 
   useEffect(() => {
-    let timerId;
+    let timerId: any;
     if (playing && !isSeeking) {
       const f = () => {
         setSeek(soundRef.current.seek());
@@ -58,16 +58,16 @@ const Player = ({ songs, activeSong }) => {
     repeatRef.current = repeat;
   }, [repeat]);
 
-  const setPlayState = (value) => {
+  const setPlayState = (value: any) => {
     setPlaying(value);
   };
 
   const prevSong = () => {
-    setIndex((state) => (state ? state - 1 : songs.length - 1));
+    setIndex((state: any) => (state ? state - 1 : songs.length - 1));
   };
 
   const nextSong = () => {
-    setIndex((state) => {
+    setIndex((state: any) => {
       if (shuffle) {
         const next = Math.floor(Math.random() * songs.length);
         if (next === state) {
@@ -93,7 +93,7 @@ const Player = ({ songs, activeSong }) => {
     setDuration(songDuration);
   };
 
-  const onSeek = (e) => {
+  const onSeek = (e: any) => {
     setSeek(parseFloat(e[0]));
     soundRef.current.seek(parseFloat(e[0]));
   };
@@ -172,7 +172,7 @@ const Player = ({ songs, activeSong }) => {
               aria-label={["min", "max"]}
               step={0.1}
               min={0}
-              max={duration ? duration.toFixed(2) : 0}
+              max={duration ? (duration.toFixed(2) as any) : 0}
               onChange={onSeek}
               value={[seek]}
               id="player-range"
