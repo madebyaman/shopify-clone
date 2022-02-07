@@ -103,7 +103,7 @@ const Sidebar = () => {
         <Divider color="gray.800" />
         <Box h="66%" overflowY="auto" py="20px">
           <List spacing={2}>
-            {playlists.map((playlist) => (
+            {playlists.map((playlist: any) => (
               <ListItem px="20px" key={playlist.id}>
                 <LinkBox>
                   <NextLink
