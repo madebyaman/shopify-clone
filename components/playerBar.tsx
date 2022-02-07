@@ -18,7 +18,6 @@ const PlayerBar = () => {
         <Box w="40%">
           {activeSong && <Player songs={songs} activeSong={activeSong} />}
         </Box>
-        <Box w="30%">Song</Box>
       </Flex>
     </Box>
   );
